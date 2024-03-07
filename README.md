@@ -5,7 +5,7 @@
 AML Setup Library provides an easy way to interface with an AML device to configure its settings and get hardware info. 
 The library allows you to create an instance of AMLSetupClient. 
 You can configure the device settings with a AML Setup configuration json string.
-This library works for native Android implementations.
+This library works for Android.Xamarin, Xamarin Forms, and Maui.
 
 ## Usage
 
