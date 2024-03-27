@@ -22,12 +22,14 @@ The parameter for the constructor is the `Context` of the Android application.
 ```csharp
 var client;
 bool _connected = false;
+public event Action<DeviceInfo> ReceiveDeviceInfo;
 
 public void InitAMLClient()
 {
     client = new AMLSetupClient(this);
-    scanner.Connected += AMLClientConnected; 
-    scanner.Error += AMLClientError;
+    ReceiveDeviceInfo += ReceivedDeviceInfo;
+    client.Connected += AMLClientConnected; 
+    client.Error += AMLClientError;
 }
 
 public void AMLClientConnected(bool permissionGranted)
@@ -36,7 +38,14 @@ public void AMLClientConnected(bool permissionGranted)
     {
         _connected = true;
         //Perform operations
+        client.GetDeviceInfo(ReceiveDeviceInfo);
     }
+}
+
+public void ReceivedDeviceInfo(DeviceInfo info)
+{
+    //DeviceInfo results
+    var serialNumber = info.GetSerialNumber();
 }
 
 public void AMLClientError(SdkError error)
